@@ -35,3 +35,5 @@ def file_move():
 if __name__ == '__main__':
     folder_creation()
     file_move()
+    print('Done.')
+    os.system('pause')
