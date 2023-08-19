@@ -31,7 +31,7 @@ def file_move():
                 if split(i) == j and i != '':
                     shutil.move(f'{desktop_path}/{i}', f'{desktop_path}/organize/{j}')
 
-def main()
+def main():
     folder_creation()
     file_move()
     print('Done.')
