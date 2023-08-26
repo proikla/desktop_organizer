@@ -28,9 +28,13 @@ def file_move():
     for j in organize:
         if j != '' and os.path.isdir(f'{desktop_path}/organize/{j}'):
             for i in contents:
-                if split(i) == j and i != '':
-                    shutil.move(f'{desktop_path}/{i}', f'{desktop_path}/organize/{j}')
+                try:
 
+                    if split(i) == j and i != '':
+                        shutil.move(f'{desktop_path}/{i}', f'{desktop_path}/organize/{j}')
+                except IOError as e:
+                    print(e)
+                    
 def main():
     folder_creation()
     file_move()
