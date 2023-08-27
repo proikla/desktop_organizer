@@ -29,7 +29,6 @@ def file_move():
         if j != '' and os.path.isdir(f'{desktop_path}/organize/{j}'):
             for i in contents:
                 try:
-
                     if split(i) == j and i != '':
                         shutil.move(f'{desktop_path}/{i}', f'{desktop_path}/organize/{j}')
                 except IOError as e:
