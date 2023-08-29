@@ -4,17 +4,17 @@ import shutil
 desktop_path = os.path.expanduser("~/Desktop")
 contents = os.listdir(desktop_path)
 
-# 'organize' folder creation and main.py file update.
+# 'organize' folder creation and organize.py file update.
 if not os.path.exists(f'{desktop_path}/organize'):
     os.makedirs(f'{desktop_path}/organize')
-    shutil.copy('main.py', f'{desktop_path}/organize')
+    shutil.copy('organize.py', f'{desktop_path}/organize')
 
-# if 'organize' folder exists, but main.py file doesnt.
-elif not os.path.exists(f'{desktop_path}/organize/main.py'):
+# if 'organize' folder exists, but organize.py file doesnt.
+elif not os.path.exists(f'{desktop_path}/organize/organize.py'):
     try:
-        shutil.copy('main.py', f'{desktop_path}/organize')
+        shutil.copy('organize.py', f'{desktop_path}/organize')
     except IOError as e:
-        print('an error occured during main.py file copying.')
+        print('an error occured during organize.py file copying.')
 
 organize = os.listdir(f'{desktop_path}/organize')
 
