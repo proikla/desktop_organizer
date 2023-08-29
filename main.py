@@ -7,8 +7,11 @@ contents = os.listdir(desktop_path)
 # 'organize' folder creation
 if not os.path.exists(f'{desktop_path}/organize'):
     os.makedirs(f'{desktop_path}/organize')
-organize = os.listdir(f'{desktop_path}/organize')
+else:
+    shutil.copy('main.py', f'{desktop_path}/organize')
 
+
+organize = os.listdir(f'{desktop_path}/organize')
 
 # file extension
 def split(filepath):
