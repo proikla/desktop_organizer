@@ -1,10 +1,11 @@
-import utils.gui as gui
-from utils.organize import organize
+from utils.gui import settings, USEGUI
+import subprocess
 
 if __name__ == '__main__':
-    if gui.settings[gui.USEGUI]:
-        gui.launch_gui()
+    if settings[USEGUI]:
+        subprocess.Popen(["python", "utils/gui.py"])
     else:
+        from utils.organize import organize
         organize()
         ...
 

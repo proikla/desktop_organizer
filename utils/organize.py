@@ -9,8 +9,11 @@ organize_path = f'{desktop_path}/organize/'
 desktop_contents = os.listdir(desktop_path)
 IGNORED = ['.lnk', '.url']  # TODO: add IGNORED to json
 
+print('organize')
 
 # get the file extension
+
+
 def setup_organize_folder():
     # 'organize' folder creation and organize.py file update.
     if not os.path.exists(organize_path):

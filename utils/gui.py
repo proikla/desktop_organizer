@@ -4,7 +4,6 @@ from tkinter import ttk
 import os
 import json
 
-
 USEGUI = 'useGUI'
 CLONE = 'cloneExecutable'
 
