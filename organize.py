@@ -3,48 +3,52 @@ import shutil
 from time import sleep
 
 desktop_path = os.path.expanduser("~/Desktop")
-contents = os.listdir(desktop_path)
+organize_path = f'{desktop_path}/organize/'
+desktop_contents = os.listdir(desktop_path)
+IGNORED = ['.lnk','.url']
 
 # 'organize' folder creation and organize.py file update.
-if not os.path.exists(f'{desktop_path}/organize'):
-    os.makedirs(f'{desktop_path}/organize')
-    shutil.copy('organize.py', f'{desktop_path}/organize')
+if not os.path.exists(organize_path):
+    # creating organize folder
+    os.makedirs(organize_path)
+    # making a copy of python file.
+    shutil.copy('organize.py', organize_path)
 
 # if 'organize' folder exists, but organize.py file doesnt.
-elif not os.path.exists(f'{desktop_path}/organize/organize.py'):
+elif not os.path.exists(f'{organize_path}/organize.py'):
     try:
-        shutil.copy('organize.py', f'{desktop_path}/organize')
+        shutil.copy('organize.py', organize_path)
     except IOError as e:
         print('an error occured during organize.py file copying.')
 
-organize = os.listdir(f'{desktop_path}/organize')
+organize = os.listdir(organize_path)
 
-# file extension
-def split(filepath):
-    return os.path.splitext(filepath)[1].lower()
-
-folder_is_ready = False
+# get the file extension
+def get_ext(filepath):
+    return os.path.splitext(filepath)[1].lower() if not os.path.isdir(filepath) else None
 
 # folder creation in 'organize' folder
 def folder_creation():
-    for i in range(len(contents)):
-        if split(f'{desktop_path}/{contents[i]}') != '' and not os.path.exists(
-                desktop_path + '/organize/' + split(f'{desktop_path}/{contents[i]}')) and not split(f'{desktop_path}/{contents[i]}') == '.lnk' and not split(f'{desktop_path}/{contents[i]}') == '.url':
-            os.makedirs(desktop_path + '/organize/' + split(f'{desktop_path}/{contents[i]}'))
+    for i in desktop_contents:
+        ext = get_ext(f'{desktop_path}/{i}')
+        if ext and ext not in IGNORED:
+            os.makedirs(f'{organize_path}/{ext}', exist_ok=True)
+    # after 'organize' folder is ready return true.
     return True
 
 
-# moving the files in its extension folder
+# moving the files to its extension folder
 def file_move():
-    for j in organize:
-        if j != '' and os.path.isdir(f'{desktop_path}/organize/{j}'):
-            for i in contents:
-                try:
-                    if split(i) == j and i != '':
-                        shutil.move(f'{desktop_path}/{i}', f'{desktop_path}/organize/{j}')
-                except IOError as e:
-                    print(e)
-                    
+    for file in desktop_contents:
+        file_ext = get_ext(file)
+
+        # if file is a file and its folder exist in the /organize/ - move it
+        if file_ext and os.path.isdir(f'{organize_path}/{file_ext}'):
+            try:
+                shutil.move(f'{desktop_path}/{file}', f'{organize_path}/{file_ext}')
+            except Exception as e:
+                print(e)
+
 def main():
     while not folder_creation():
         sleep(.1)
@@ -54,4 +58,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-#TODO: проверку сделай на тип файла чтобы этот долбаеб не создавал в папке organize папку для папки.
