@@ -3,7 +3,7 @@ organize your desktop files
 
 im tired of the mess on my desktop so i needed a simple solution to my pain. 
 so i wrote this thing to put files in the folder with the name of its extension.
-this works pretty well especialy with using such thing as wizTree, 
+this works pretty well especially using such thing as wizTree, 
 by using this you get a nice tree with all information about the size of the folders. 
 
 that's pretty much it
