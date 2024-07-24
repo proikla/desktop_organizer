@@ -1,5 +1,6 @@
 import os
 import shutil
+from time import sleep
 
 desktop_path = os.path.expanduser("~/Desktop")
 contents = os.listdir(desktop_path)
@@ -22,6 +23,7 @@ organize = os.listdir(f'{desktop_path}/organize')
 def split(filepath):
     return os.path.splitext(filepath)[1].lower()
 
+folder_is_ready = False
 
 # folder creation in 'organize' folder
 def folder_creation():
@@ -29,6 +31,7 @@ def folder_creation():
         if split(f'{desktop_path}/{contents[i]}') != '' and not os.path.exists(
                 desktop_path + '/organize/' + split(f'{desktop_path}/{contents[i]}')) and not split(f'{desktop_path}/{contents[i]}') == '.lnk' and not split(f'{desktop_path}/{contents[i]}') == '.url':
             os.makedirs(desktop_path + '/organize/' + split(f'{desktop_path}/{contents[i]}'))
+    return True
 
 
 # moving the files in its extension folder
@@ -43,10 +46,12 @@ def file_move():
                     print(e)
                     
 def main():
-    folder_creation()
+    while not folder_creation():
+        sleep(.1)
     file_move()
     print('Done.')
     os.system('pause')
 
 if __name__ == '__main__':
     main()
+#TODO: проверку сделай на тип файла чтобы этот долбаеб не создавал в папке organize папку для папки.
