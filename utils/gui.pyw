@@ -32,9 +32,8 @@ def launch_gui():
 
     # window size
     window_width = 400
-    window_height = 300
+    window_height = 250
     window.geometry(f"{window_width}x{window_height}")
-    window.minsize(400, 400)
 
     # other window settings
     window.title('organize GUI')
@@ -48,11 +47,17 @@ def launch_gui():
     y = (screen_height // 2) - (window_height // 2)
     window.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
+    # window.grid_rowconfigure(0, weight=1)  # Allow row to expand
+    # window.grid_columnconfigure(0, weight=1)
+
     # label & button
     ttk.Label(window, text="Would you like to organize desktop?").grid(
         column=0, row=0, pady=(30, 0))
-    ttk.Button(window, text="organize", command=on_button_press).grid(
-        column=0, row=1, pady=(10, 0))
+
+    organize_button = ttk.Button(
+        window, text="organize", command=on_button_press, width=25)
+
+    organize_button.grid(column=0, row=1, pady=(10, 0))
 
     # checkboxes
     checkboxes = ttk.Frame(window, padding=(0, 30, 0, 100))
