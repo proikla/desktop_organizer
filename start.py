@@ -13,4 +13,3 @@ if __name__ == '__main__':
         ...
 
         # TODO: delete executable in organize folder if needed
-# FIXME: wtf gui doesnt change anything fix it

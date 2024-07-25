@@ -24,7 +24,6 @@ def launch_gui():
 
     def on_check0():
         settings['useGUI'] = use_gui_check.get()
-        print('ajlsdlasd')
         organize.write_json_settings()
 
     def on_check1():

@@ -7,7 +7,7 @@ import json
 
 
 def setup_settings():
-    if not os.path.exists('../settings.json'):
+    if not os.path.exists('settings.json'):
         default_settings = {'useGUI': True, 'cloneExecutable': True}
         with open('settings.json', 'w') as w:
             w.write(json.dumps(default_settings))
@@ -17,7 +17,7 @@ def setup_settings():
 
 
 def get_settings():
-    with open('../settings.json', 'r') as r:
+    with open('settings.json', 'r') as r:
         data = json.loads(r.read())
     return data
 
@@ -26,7 +26,7 @@ settings = setup_settings()
 
 
 def write_json_settings():
-    with open('../settings.json', 'w') as w:
+    with open('settings.json', 'w') as w:
         w.write(json.dumps(settings))
         w.close
     return 1
@@ -47,13 +47,6 @@ def setup_organize_folder():
 
     # if 'organize' folder exists, but organize.py file doesnt.
     if not os.path.exists(f'{organize_path}organize.py'):
-        # if __name__ != '__main__':
-        #     from utils.gui import settings as json_settings
-        # else:
-        #     from gui import settings as json_settings
-
-        # print(settings)
-
         if settings['cloneExecutable']:
             try:
                 shutil.copy('utils/organize.py', organize_path)
