@@ -1,8 +1,7 @@
-from tkinter import *
+# from tkinter import *
+from tkinter import Tk, N, W
 import tkinter as tk
 from tkinter import ttk
-import os
-import json
 import organize
 
 USEGUI = 'useGUI'
@@ -12,11 +11,11 @@ settings = organize.settings
 
 
 def launch_gui():
-
     window = Tk()
+
+    # checkbox variables.
     use_gui_check = tk.BooleanVar(value=settings['useGUI'])
     clone_check = tk.BooleanVar(value=settings['cloneExecutable'])
-    # button_clicked = False
 
     def on_button_press():
         from organize import organize
@@ -47,9 +46,6 @@ def launch_gui():
     y = (screen_height // 2) - (window_height // 2)
     window.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
-    # window.grid_rowconfigure(0, weight=1)  # Allow row to expand
-    # window.grid_columnconfigure(0, weight=1)
-
     # label & button
     ttk.Label(window, text="Would you like to organize desktop?").grid(
         column=0, row=0, pady=(30, 0))
@@ -62,6 +58,7 @@ def launch_gui():
     # checkboxes
     checkboxes = ttk.Frame(window, padding=(0, 30, 0, 100))
     checkboxes.grid(sticky=W)
+
     checkbox0 = ttk.Checkbutton(
         checkboxes, text='use gui', command=on_check0, variable=use_gui_check)
     checkbox0.pack(anchor=W)

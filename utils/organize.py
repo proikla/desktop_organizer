@@ -1,8 +1,5 @@
 import os
-from tkinter import ttk
 import shutil
-import tkinter
-from time import sleep
 import json
 
 
@@ -57,9 +54,8 @@ def setup_organize_folder():
 
     create_ext_folders()
 
+
 # get extension of the file
-
-
 def get_ext(filepath):
     return os.path.splitext(filepath)[1].lower() if not os.path.isdir(filepath) else None
 
@@ -70,7 +66,6 @@ def create_ext_folders():
         ext = get_ext(f'{desktop_path}/{i}')
         if ext and ext not in IGNORED:
             os.makedirs(f'{organize_path}{ext}', exist_ok=True)
-    # after 'organize' folder is ready return true.
     return True
 
 
@@ -82,11 +77,11 @@ def move_files_by_ext():
         # if file is a file and its folder exist in the /organize/ - move it
         if file_ext and os.path.isdir(f'{organize_path}{file_ext}'):
             try:
-                # FIXME: redundant isdir check i think
                 shutil.move(f'{desktop_path}/{file}',
                             f'{organize_path}{file_ext}')
-            except Exception as e:
-                print(e)
+            except Exception:
+                return False
+        return True
 
 
 # all functionality combined
