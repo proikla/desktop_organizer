@@ -3,33 +3,12 @@ import tkinter as tk
 from tkinter import ttk
 import os
 import json
+import organize
 
 USEGUI = 'useGUI'
 CLONE = 'cloneExecutable'
 
-
-def json_settings():
-    if not os.path.exists('settings.json'):
-        default_settings = {'useGUI': True, 'cloneExecutable': True}
-        with open('settings.json', 'w') as w:
-            w.write(json.dumps(default_settings))
-            w.close()
-        return default_settings
-    else:
-        with open('settings.json', 'r') as r:
-            data = json.loads(r.read())
-            r.close()
-        return data
-
-
-def write_json_settings():
-    with open('settings.json', 'w') as w:
-        w.write(json.dumps(settings))
-        w.close
-    return 1
-
-
-settings = json_settings()
+settings = organize.settings
 
 
 def launch_gui():
@@ -40,16 +19,16 @@ def launch_gui():
     # button_clicked = False
 
     def on_button_press():
-        import utils.organize as organize
-        organize.organize()
+        from organize import organize
+        organize()
 
     def on_check0():
         settings['useGUI'] = use_gui_check.get()
-        write_json_settings()
+        organize.write_json_settings()
 
     def on_check1():
         settings['cloneExecutable'] = clone_check.get()
-        write_json_settings()
+        organize.write_json_settings()
 
     # window size
     window_width = 400
