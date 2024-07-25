@@ -6,20 +6,23 @@ from time import sleep
 import json
 
 
-def json_settings():
+def setup_settings():
     if not os.path.exists('../settings.json'):
         default_settings = {'useGUI': True, 'cloneExecutable': True}
         with open('settings.json', 'w') as w:
             w.write(json.dumps(default_settings))
         return default_settings
     else:
-        with open('../settings.json', 'r') as r:
-            data = json.loads(r.read())
-        return data
+        return get_settings()
 
 
-settings = json_settings()
-print(settings)
+def get_settings():
+    with open('../settings.json', 'r') as r:
+        data = json.loads(r.read())
+    return data
+
+
+settings = setup_settings()
 
 
 def write_json_settings():
