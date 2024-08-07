@@ -31,11 +31,10 @@ def write_json_settings():
 
 desktop_path = os.path.expanduser("~/Desktop")
 organize_path = f'{desktop_path}/organize/'
-desktop_contents = os.listdir(desktop_path)
 IGNORED = ['.lnk', '.url']  # TODO: add IGNORED to json
 
 
-# create /organize/ if doesnt it exist, clone organize.py into it if needed. #FIXME: change organize.py to start.py!
+# create /organize/ if doesnt it exist, clone organize.py into it if needed. #todo create link to start.py in the organize folder
 def setup_organize_folder():
     # 'organize' folder creation and organize.py file update.
     if not os.path.exists(organize_path):
@@ -47,12 +46,13 @@ def setup_organize_folder():
         if settings['cloneExecutable']:
             try:
                 shutil.copy('utils/organize.py', organize_path)
-            except Exception as e:
-                print(f'an error occured during organize.py file copying: {e}')
+            except Exception:
+                pass
+                # todo logging
         else:
             ...
 
-    create_ext_folders()
+    create_ext_folders_and_move()
 
 
 # get extension of the file
@@ -61,18 +61,15 @@ def get_ext(filepath):
 
 
 # folder creation in 'organize' folder
-def create_ext_folders():
-    for i in desktop_contents:
-        ext = get_ext(f'{desktop_path}/{i}')
-        if ext and ext not in IGNORED:
-            os.makedirs(f'{organize_path}{ext}', exist_ok=True)
-    return True
+def create_ext_folders_and_move():
 
-
-# moving the files to its extension folder
-def move_files_by_ext():
+    desktop_contents = os.listdir(desktop_path)
+    
     for file in desktop_contents:
         file_ext = get_ext(file)
+
+        if file_ext and file_ext not in IGNORED:
+            os.makedirs(f'{organize_path}{file_ext}', exist_ok=True)
 
         # if file is a file and its folder exist in the /organize/ - move it
         if file_ext and os.path.isdir(f'{organize_path}{file_ext}'):
@@ -80,15 +77,12 @@ def move_files_by_ext():
                 shutil.move(f'{desktop_path}/{file}',
                             f'{organize_path}{file_ext}')
             except Exception:
-                return False
-        return True
-
+                # todo add logging functionality and logging check in the gui
+                pass
 
 # all functionality combined
 def organize():
     setup_organize_folder()
-    move_files_by_ext()
-    return True
 
 
 def main():
